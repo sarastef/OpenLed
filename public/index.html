@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>OpenLed</title>
+	 <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="main.js"></script>
+<style>
+.btn{
+width: 200px;
+padding: 15px 32px;
+text-align: center;
+}
+.contenu{
+	margin:5% auto;
+}
+
+
+</style>
+</head>
+<body>
+	<div class="container theme-showcase" role="main">
+		<div class="jumbotron" style="text-align: center;">
+        	<h1>Manipulation d'un Arduino Uno depuis une interface Web </h1>
+        	<p>En utilisant NodeJS, Johnny-Five et Socket IO</p>
+        	
+      	</div>
+		<div class="row contenu">
+			<div class="col-md-3 col-md-offset-3">
+			<p> <button id="b_azul" type="button" class="btn btn-lg btn-primary">Bleu</button>
+			<p> <button id="b_verde" type="button" class="btn btn-lg btn-success">Vert</button>
+			<p> <button id="b_rojo" type="button" class="btn btn-lg btn-danger">Rouge</button>
+			</div>
+			<div class="col-md-3">
+			<p> <button id="b_stop" type="button" class="btn btn-lg btn-default">Stop-Blink</button>
+			<p> <button id="b_off" type="button" class="btn btn-lg btn-default">Led OFF</button>
+			<p> <button id="b_on" type="button" class="btn btn-lg btn-default">Led ON</button>
+			</div>
+		</div>
+		<div class="row footer">
+			<div class="well">
+				<p> Réalisé par: Sara QUISPE
+				<br>Code: <a href="https://github.com/sarastef">Github</a>
+				<br>Outils: <a href="http://johnny-five.io/examples/">Johnny-Five</a>
+			</div>
+		</div>
+	
+	</div>
+<!--<script src="app.js"></script>-->
+<script>
+	
+	//sert à créer une instance pour la connexion avec Node. 
+	var socket = io();
+
+	function changerBleu(){
+		socket.emit('bleu');
+	}
+
+	function changerVert(){
+		socket.emit('vert');
+	}
+
+	function changerRouge(){
+		socket.emit('rouge');
+	}
+
+	function stopBlink(){
+		socket.emit('stop');
+	}
+
+	function offLed(){
+		socket.emit('off');
+	}
+
+	function onLed(){
+		socket.emit('on');
+	}
+
+	console.log(document.getElementById('b_azul'));
+	/* Des que l'utilisateur fait click sur un bouton
+	   on envoi comme message*/
+	document.getElementById('b_azul').onclick = changerBleu;
+	document.getElementById('b_verde').onclick = changerVert;
+	document.getElementById('b_rojo').onclick = changerRouge;
+	document.getElementById('b_stop').onclick = stopBlink;
+	document.getElementById('b_off').onclick = offLed;
+	document.getElementById('b_on').onclick = onLed;
+
+</script>
+</body>
+</html>
+</body>
+</html>
